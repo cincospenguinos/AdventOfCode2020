@@ -12,11 +12,10 @@ class DayOne
 
 		while indexes[0] < list.size do
 			while indexes[1] < list.size do
-				nums_to_test = indexes.map { |i| list[i] }
-				sum = nums_to_test.inject(:+)
+				sum = current_values.inject(:+)
 
 				if sum == 2020
-					@numbers = nums_to_test
+					@numbers = current_values
 					return @numbers
 				end
 
@@ -39,5 +38,9 @@ class DayOne
 
 	def indexes
 		@indexes ||= [0, 1]
+	end
+
+	def current_values
+		indexes.map { |i| list[i] }
 	end
 end
