@@ -19,7 +19,7 @@ describe 'DayOne' do
 		assert day.product == 514579
 	end
 
-	it 'part one' do
+	it 'solves part one' do
 		numbers = File.read('data/day1.txt').split(/\s+/).map(&:to_i)
 		assert DayOne.new(numbers).product == 870331
 	end

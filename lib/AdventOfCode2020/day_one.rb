@@ -1,32 +1,30 @@
 class DayOne
 	attr_reader :list
 
-	def initialize(list)
+	def initialize(list, amount_of_addends = 2)
 		@list = list
 		@numbers = nil
+		@amount_of_addends = amount_of_addends
 	end
 
 	def numbers
 		return @numbers unless @numbers.nil?
 
-		current_idx = 0
-		to_test = 1
+		while indexes[0] < list.size do
+			while indexes[1] < list.size do
+				nums_to_test = indexes.map { |i| list[i] }
+				sum = nums_to_test.inject(:+)
 
-		while current_idx < list.size do
-			while to_test < list.size do
-				a = list[current_idx]
-				b = list[to_test]
-
-				if a + b == 2020
-					@numbers = [a, b]
+				if sum == 2020
+					@numbers = nums_to_test
 					return @numbers
 				end
 
-				to_test += 1
+				indexes[1] += 1
 			end
 
-			current_idx += 1
-			to_test = current_idx + 1
+			indexes[0] += 1
+			indexes[1] = indexes[0] + 1
 		end
 
 		return nil
@@ -35,5 +33,11 @@ class DayOne
 	def product
 		@numbers ||= numbers
 		@numbers[0] * @numbers[1]
+	end
+
+	private
+
+	def indexes
+		@indexes ||= [0, 1]
 	end
 end
