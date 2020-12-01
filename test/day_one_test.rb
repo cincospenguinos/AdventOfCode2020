@@ -6,4 +6,10 @@ describe 'DayOne' do
 		day = DayOne.new(numbers)
 		assert day.numbers == [1721, 299]
 	end
+
+	it 'finds numbers out of order' do
+		numbers = [979, 299, 366, 675, 1456, 1721]
+		day = DayOne.new(numbers)
+		assert day.numbers == [299, 1721]
+	end
 end
