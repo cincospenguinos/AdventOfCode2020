@@ -16,6 +16,11 @@ describe 'DayOne' do
 	it 'gives the product of the numbers it finds' do
 		numbers = [979, 299, 366, 675, 1456, 1721]
 		day = DayOne.new(numbers)
-		assert day.product == 299 * 1721
+		assert day.product == 514579
+	end
+
+	it 'part one' do
+		numbers = File.read('data/day1.txt').split(/\s+/).map(&:to_i)
+		assert DayOne.new(numbers).product == 870331
 	end
 end
