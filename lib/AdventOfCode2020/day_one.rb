@@ -3,9 +3,12 @@ class DayOne
 
 	def initialize(list)
 		@list = list
+		@numbers = nil
 	end
 
 	def numbers
+		return @numbers unless @numbers.nil?
+
 		current_idx = 0
 		to_test = 1
 
@@ -14,7 +17,11 @@ class DayOne
 				a = list[current_idx]
 				b = list[to_test]
 
-				return [a, b] if a + b == 2020
+				if a + b == 2020
+					@numbers = [a, b]
+					return @numbers
+				end
+
 				to_test += 1
 			end
 
@@ -23,5 +30,10 @@ class DayOne
 		end
 
 		return nil
+	end
+
+	def product
+		@numbers ||= numbers
+		@numbers[0] * @numbers[1]
 	end
 end

@@ -12,4 +12,10 @@ describe 'DayOne' do
 		day = DayOne.new(numbers)
 		assert day.numbers == [299, 1721]
 	end
+
+	it 'gives the product of the numbers it finds' do
+		numbers = [979, 299, 366, 675, 1456, 1721]
+		day = DayOne.new(numbers)
+		assert day.product == 299 * 1721
+	end
 end
