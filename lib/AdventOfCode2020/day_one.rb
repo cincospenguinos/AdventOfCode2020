@@ -1,5 +1,5 @@
 class DayOne
-	attr_reader :list
+	attr_reader :list, :amount_of_addends
 
 	def initialize(list, amount_of_addends = 2)
 		@list = list
@@ -11,15 +11,11 @@ class DayOne
 		return @numbers unless @numbers.nil?
 
 		while indexes[0] < list.size do
-			while indexes[1] < list.size do
-				sum = current_values.inject(:+)
+			did_find = search_within(1) { current_values.inject(:+) == 2020 }
 
-				if sum == 2020
-					@numbers = current_values
-					return @numbers
-				end
-
-				indexes[1] += 1
+			if did_find
+				@numbers = current_values
+				return current_values
 			end
 
 			indexes[0] += 1
@@ -42,5 +38,17 @@ class DayOne
 
 	def current_values
 		indexes.map { |i| list[i] }
+	end
+
+	def search_within(index)
+		while indexes[index] < list.size do
+			if yield
+				return true
+			else
+				indexes[index] += 1
+			end
+		end
+
+		false
 	end
 end
