@@ -1,4 +1,5 @@
 require_relative 'password'
+require_relative 'other_password'
 
 class DayTwo
   attr_reader :passwords, :klass
