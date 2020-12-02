@@ -2,8 +2,10 @@ require_relative 'password'
 
 class OtherPassword < Password
   def valid?
-    (password[index0] == letter && password[index1] != letter) ||
-    (password[index0] != letter && password[index1] == letter)
+    first_valid = password[index0] == letter
+    second_valid = password[index1] == letter
+
+    (first_valid && !second_valid) || (!first_valid && second_valid)
   end
 
   private
