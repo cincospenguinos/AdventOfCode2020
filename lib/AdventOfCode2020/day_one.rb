@@ -10,19 +10,8 @@ class DayOne
 	def numbers
 		return @numbers unless @numbers.nil?
 
-		while indexes[0] < list.size do
-			did_find = search_within(1) { current_values.inject(:+) == 2020 }
-
-			if did_find
-				@numbers = current_values
-				return current_values
-			end
-
-			indexes[0] += 1
-			indexes[1] = indexes[0] + 1
-		end
-
-		return nil
+		meta_search(0)
+		current_values
 	end
 
 	def product
@@ -38,6 +27,20 @@ class DayOne
 
 	def current_values
 		indexes.map { |i| list[i] }
+	end
+
+	def meta_search(index)
+		while indexes[index] < list.size do
+			did_find = search_within(index + 1) { current_values.inject(:+) == 2020 }
+
+			if did_find
+				@numbers = current_values
+				return current_values
+			end
+
+			indexes[index] += 1
+			indexes[index + 1] = indexes[index] + 1
+		end
 	end
 
 	def search_within(index)
