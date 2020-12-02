@@ -1,3 +1,5 @@
+require_relative 'password'
+
 class DayTwo
   attr_reader :passwords
 
@@ -9,24 +11,8 @@ class DayTwo
   def valid_passwords
     return @valid_passwords unless @valid_passwords.nil?
 
-    mappings = passwords.map do |line|
-      split = line.split(' ')
-      range = split[0].split('-').map(&:to_i)
-      letter = split[1].gsub(':', '')
-      password = split[2].chomp
-
-      amt = password.split('')
-        .map { |l| l == letter }
-        .select { |t| t }
-        .count
-
-      if amt >= range[0] && amt <= range[1]
-        password
-      else
-        nil
-      end
-    end
-
-    mappings.reject(&:nil?)
+    passwords.map { |line| Password.new(line) }
+      .select(&:valid?)
+      .map(&:password)
   end
 end
