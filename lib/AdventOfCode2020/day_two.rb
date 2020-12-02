@@ -6,38 +6,27 @@ class DayTwo
     @valid_passwords = nil
   end
 
-  class Password
-    attr_reader :password
-
-    def initialize(line)
-      split = line.split(/\s+/)
-      @range = split[0].gsub('-', ' ').split(' ').map(&:to_i)
-      @letter = split[1].gsub(':', '')
-      @password = split[2].chomp
-    end
-
-    def regex
-      /\A.*#{@letter}{#{@range[0]},#{@range[1]}}.*\z/
-    end
-
-    def valid?
-      !(regex =~ password).nil?
-    end
-  end
-
   def valid_passwords
     return @valid_passwords unless @valid_passwords.nil?
 
-    mapping = passwords.map do |password|
-      validation = Password.new(password)
+    mappings = passwords.map do |line|
+      split = line.split(' ')
+      range = split[0].split('-').map(&:to_i)
+      letter = split[1].gsub(':', '')
+      password = split[2].chomp
 
-      if validation.valid?
-        validation.password
+      amt = password.split('')
+        .map { |l| l == letter }
+        .select { |t| t }
+        .count
+
+      if amt >= range[0] && amt <= range[1]
+        password
       else
         nil
       end
     end
 
-    mapping.reject(&:nil?)
+    mappings.reject(&:nil?)
   end
 end
