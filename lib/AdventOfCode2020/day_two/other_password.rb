@@ -2,10 +2,6 @@ require_relative 'password'
 
 class OtherPassword < Password
   def valid?
-    # [password[index0] == letter, password[index1] == letter]
-    #   .map { |l| l }
-    #   .select { |l| l }
-    #   .count == 1
     (password[index0] == letter && password[index1] != letter) ||
     (password[index0] != letter && password[index1] == letter)
   end
