@@ -19,8 +19,19 @@ describe 'DayOne' do
 		assert day.product == 514579
 	end
 
+	it 'searches for three addends' do
+		numbers = [979, 299, 366, 675, 1456, 1721]
+		day = DayOne.new(numbers, 3)
+		assert day.numbers == [979, 366, 675]
+	end
+
 	it 'solves part one' do
 		numbers = File.read('data/day1.txt').split(/\s+/).map(&:to_i)
 		assert DayOne.new(numbers).product == 870331
+	end
+
+	it 'solves part two' do
+		numbers = File.read('data/day1.txt').split(/\s+/).map(&:to_i)
+		assert DayOne.new(numbers, 3).product == 283025088
 	end
 end

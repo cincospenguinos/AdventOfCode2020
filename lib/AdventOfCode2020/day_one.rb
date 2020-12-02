@@ -16,7 +16,7 @@ class DayOne
 
 	def product
 		@numbers ||= numbers
-		@numbers[0] * @numbers[1]
+		@numbers.inject(:*)
 	end
 
 	private
@@ -31,16 +31,22 @@ class DayOne
 
 	def meta_search(index)
 		while indexes[index] < list.size do
-			did_find = search_within(index + 1) { current_values.inject(:+) == 2020 }
+			if indexes[index + 1] == indexes[-1]
+				did_find = search_within(index + 1) { current_values.inject(:+) == 2020 }
+			else
+				did_find = meta_search(index + 1)
+			end
 
 			if did_find
 				@numbers = current_values
-				return current_values
+				return true
 			end
 
 			indexes[index] += 1
 			indexes[index + 1] = indexes[index] + 1
 		end
+
+		false
 	end
 
 	def search_within(index)
