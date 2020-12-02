@@ -33,7 +33,7 @@ class DayOne
 	private
 
 	def indexes
-		@indexes ||= [0, 1]
+		@indexes ||= (0...amount_of_addends).to_a
 	end
 
 	def current_values
