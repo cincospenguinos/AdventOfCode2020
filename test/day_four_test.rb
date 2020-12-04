@@ -18,4 +18,9 @@ describe 'DayFour' do
 	it 'rejects invalid passports' do
 		assert DayFour.new([invalid]).valid_count == 0
 	end
+
+	it 'solves part one' do
+		passports = File.read('data/day4.txt').split("\n\n").map(&:chomp)
+		assert DayFour.new(passports).valid_count == 192
+	end
 end
