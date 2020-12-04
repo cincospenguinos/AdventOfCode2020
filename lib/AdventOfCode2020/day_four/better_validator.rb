@@ -14,8 +14,7 @@ class BetterValidator < HackValidator
 
 	def has_fields(passport)
 		HackValidator::EXPECTED_FIELDS
-			.reject { |field| passport.fields[field].nil? }
-			.count == HackValidator::EXPECTED_FIELDS.count
+			.none? { |field| passport.fields[field].nil? }
 	end
 
 	def byr(passport)
