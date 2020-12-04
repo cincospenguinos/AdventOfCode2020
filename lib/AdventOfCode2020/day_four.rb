@@ -1,16 +1,18 @@
-class DayFour
-	attr_reader :passports
+require_relative 'day_four/hack_validator'
+require_relative 'day_four/better_validator'
 
-	def initialize(passports)
+class DayFour
+	attr_reader :passports, :validator
+
+	def initialize(passports, validator = 'HackValidator')
 		@passports = passports.map { |p| Passport.new(p) }
+		@validator = Object.const_get(validator).new
 	end
 
 	def valid_count
-		expected_fields = %i(byr iyr eyr hgt hcl ecl pid)
-		passports.select do |passport|
-			expected_fields.all? { |k| passport.keys.include?(k) }
-		end
-		.count
+		passports
+			.select { |passport| validator.valid?(passport) }
+			.count
 	end
 
 	class Passport
