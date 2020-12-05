@@ -18,10 +18,9 @@ class DayFive
 
   def passes
     @passes.map do |pass|
-      rows = (0...128).to_a
-      row = binary_search(pass[0..6], rows)
-      cols = (0...8).to_a
-      BoardingPass.new(row, nil)
+      row = binary_search(pass[0..6], (0...128).to_a)
+      col = binary_search(pass[7...(pass.length)], (0...8).to_a)
+      BoardingPass.new(row, col)
     end
   end
 
@@ -31,7 +30,7 @@ class DayFive
     string.split('').each do |val|
       pivot = values.size / 2
 
-      if val == 'F'
+      if val == 'F' || val == 'L'
         values = values[0...pivot]
       else
         values = values[pivot..(values.size - 1)]
