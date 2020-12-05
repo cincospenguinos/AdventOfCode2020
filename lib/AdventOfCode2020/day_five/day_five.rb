@@ -29,16 +29,15 @@ class DayFive
 
   def binary_search(string, values)
     string.split('').each do |val|
-      pivot = values[values.size / 2]
+      pivot = values.size / 2
 
       if val == 'F'
-        values = values.reject { |r| r > pivot }
+        values = values[0...pivot]
       else
-        values = values.reject { |r| r < pivot }
+        values = values[pivot..(values.size - 1)]
       end
     end
 
-    values = values[0] if values.size == 2
-    values
+    values.first
   end
 end
