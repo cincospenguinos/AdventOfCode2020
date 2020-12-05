@@ -24,6 +24,10 @@ class DayFive
     end
   end
 
+  def ids
+    passes.map(&:id)
+  end
+
   private
 
   def binary_search(string, values)

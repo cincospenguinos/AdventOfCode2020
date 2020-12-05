@@ -14,7 +14,22 @@ describe 'DayFive' do
   end
 
   it 'properly calculates ids' do
-    ids = DayFive.new([example]).passes.map(&:id)
+    ids = DayFive.new([example]).ids
     assert ids[0] == 357
+  end
+
+  it 'solves part one' do
+    passes = File.read('data/day5.txt').split(/\s+/).map(&:chomp)
+    ids = DayFive.new(passes).ids
+    assert ids.max == 828
+  end
+
+  it 'solves part two' do
+    passes = File.read('data/day5.txt').split(/\s+/).map(&:chomp)
+    ids = DayFive.new(passes).ids.sort
+    index = ids.each_with_index
+      .map { |val, index| ids[index + 1] == val + 2 }
+      .index(true)
+    assert ids[index] + 1 == 565
   end
 end
