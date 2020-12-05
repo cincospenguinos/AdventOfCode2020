@@ -7,7 +7,7 @@ class DayFive
     attr_reader :row, :col
 
     def initialize(row, col)
-      @row = row.size == 2 ? row[0] : row
+      @row = row
       @col = col
     end
 
@@ -18,19 +18,27 @@ class DayFive
 
   def passes
     @passes.map do |pass|
-      row = (0..128).to_a
+      rows = (0..128).to_a
 
-      pass[0..6].split('').each do |val|
-        pivot = row[row.size / 2]
-
-        if val == 'F'
-          row = row.reject { |r| r > pivot }
-        else
-          row = row.reject { |r| r < pivot }
-        end
-      end
-
+      row = binary_search(pass[0..6], rows)
       BoardingPass.new(row, nil)
     end
+  end
+
+  private
+
+  def binary_search(string, values)
+    string.split('').each do |val|
+      pivot = values[values.size / 2]
+
+      if val == 'F'
+        values = values.reject { |r| r > pivot }
+      else
+        values = values.reject { |r| r < pivot }
+      end
+    end
+
+    values = values[0] if values.size == 2
+    values
   end
 end
