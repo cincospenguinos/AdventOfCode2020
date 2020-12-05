@@ -18,9 +18,9 @@ class DayFive
 
   def passes
     @passes.map do |pass|
-      rows = (0..128).to_a
-
+      rows = (0...128).to_a
       row = binary_search(pass[0..6], rows)
+      cols = (0...8).to_a
       BoardingPass.new(row, nil)
     end
   end
