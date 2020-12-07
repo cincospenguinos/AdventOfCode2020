@@ -10,4 +10,8 @@ class DaySix
 	def count
 		groups.map(&:unique).inject(:+)
 	end
+
+	def strict_count
+		groups.map(&:every).inject(:+)
+	end
 end
