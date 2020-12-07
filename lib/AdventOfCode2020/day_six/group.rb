@@ -12,8 +12,11 @@ class Group
 
 	def every
 		letters = individuals[0].split('')
+
 		individuals[1...(individuals.size)].each do |individual|
-			letters = individual.split('').select { |i| letters.include?(i) }
+			letters = individual
+				.split('')
+				.select { |i| letters.include?(i) }
 		end
 
 		letters.count
