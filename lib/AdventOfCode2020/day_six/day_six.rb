@@ -8,10 +8,16 @@ class DaySix
 	end
 
 	def count
-		groups.map(&:unique).inject(:+)
+		count_with(:unique)
 	end
 
 	def strict_count
-		groups.map(&:every).inject(:+)
+		count_with(:every)
+	end
+
+	private
+
+	def count_with(func)
+		groups.map(&func).inject(:+)
 	end
 end

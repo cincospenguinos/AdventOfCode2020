@@ -33,6 +33,6 @@ describe 'DaySix' do
 
 	it 'solves part two' do
 		groups = File.read('data/day6.txt').split("\n\n")
-		puts DaySix.new(groups).strict_count
+		assert DaySix.new(groups).strict_count == 3158
 	end
 end
